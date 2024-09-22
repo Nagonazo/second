@@ -25,9 +25,24 @@
             max-width: 90%;
             max-height: 90%;
         }
+        /* 画面上のテキストスタイル */
+        .overlay-text {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            z-index: 10;
+            text-shadow: 1px 1px 2px black;
+        }
     </style>
 </head>
 <body style="margin: 0; overflow: hidden;">
+    <!-- 画面上に表示するテキスト -->
+    <div class="overlay-text">Hiroマーカーを探せ</div>
+
     <a-scene embedded arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;">
         <a-marker preset="hiro">
             <!-- 出現する画像 -->
@@ -44,7 +59,7 @@
         <!-- カメラ設定 -->
         <a-entity camera look-controls="enabled: true" 
                   position="0 0 0"
-                  camera="zoom: 1; fov: 80;"></a-entity> <!-- カメラのズームと視野角を設定 -->
+                  camera="zoom: 1; fov: 80;"></a-entity>
     </a-scene>
 
     <!-- フルスクリーン表示用の画像 -->
