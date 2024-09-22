@@ -32,7 +32,7 @@
         </a-text>
 
         <!-- Hiroマーカーに表示する画像 -->
-        <img id="marker-image" src="path_to_marker_image.jpg" style="display: none;">
+        <img id="marker-image" src="marker_image.jpg" style="display: none;">
 
         <!-- フルスクリーン画像の設定 -->
         <style>
@@ -55,7 +55,7 @@
             // 画像クリックイベントの設定
             document.querySelector('.clickable').addEventListener('click', function () {
                 const fullscreenImage = document.getElementById('fullscreen-image');
-                fullscreenImage.src = 'path_to_fullscreen_image.jpg'; // フルスクリーンに表示する画像
+                fullscreenImage.src = 'full_image.jpg'; // フルスクリーンに表示する画像
                 fullscreenImage.style.display = 'block';
             });
 
