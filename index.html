@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Image Display</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/master/aframe/build/aframe-ar.min.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+    <a-scene embedded arjs>
+        <!-- Hiroマーカーに合わせて表示される画像 -->
+        <a-marker preset="hiro">
+            <a-image 
+                src="#marker-image" 
+                position="0 1.5 0" 
+                scale="2 2 2"
+                rotation="0 0 0"
+                class="clickable">
+            </a-image>
+        </a-marker>
+
+        <a-entity camera></a-entity>
+
+        <!-- Hiroマーカーで表示される画像の定義 -->
+        <img id="marker-image" src="path_to_marker_image.jpg" style="display: none;">
+
+        <!-- フルスクリーン表示用のスタイル -->
+        <style>
+            #fullscreen-image {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                object-fit: contain;
+                background: rgba(0, 0, 0, 0.8);
+                z-index: 9999;
+            }
+        </style>
+
+        <!-- フルスクリーン表示のためのHTML -->
+        <img id="fullscreen-image" src="">
+
+        <script>
+            // 画像がタップされたときのイベント設定
+            document.querySelector('.clickable').addEventListener('click', function () {
+                const fullscreenImage = document.getElementById('fullscreen-image');
+                // フルスクリーンで表示される別の画像を設定
+                fullscreenImage.src = 'path_to_fullscreen_image.jpg'; // フルスクリーン表示する画像のパスに変更
+                fullscreenImage.style.display = 'block';
+            });
+
+            // フルスクリーンの画像をタップしたら閉じる
+            document.getElementById('fullscreen-image').addEventListener('click', function () {
+                this.style.display = 'none';
+            });
+        </script>
+    </a-scene>
+</body>
+</html>
