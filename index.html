@@ -48,7 +48,7 @@
             <!-- 出現する画像 -->
             <a-image 
                 id="ar-image"
-                src="path/to/your-image.jpg" <!-- ここに画像のURLを指定 -->
+                src="ar-image.jpg" <!-- 出現する画像のURL -->
                 position="0 1 -3" 
                 scale="1 1 1" 
                 look-at="[camera]"
@@ -67,11 +67,11 @@
     </div>
 
     <script>
-        // 画像をクリックしたときにフルスクリーンで表示する
+        // 出現する画像をクリックしたときにフルスクリーンで表示する別の画像
         document.querySelector('#ar-image').addEventListener('click', function () {
             const fullscreenDiv = document.getElementById('fullscreen');
             const fullscreenImage = document.getElementById('fullscreen-image');
-            fullscreenImage.src = this.getAttribute('src');
+            fullscreenImage.src = 'full-image.jpg'; // フルスクリーン表示する画像のURLを指定
             fullscreenDiv.style.display = 'flex';
         });
 
