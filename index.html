@@ -6,44 +6,9 @@
     <title>AR with Image</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/master/aframe/build/aframe-ar.min.js"></script>
-    <style>
-        /* フルスクリーン表示用のスタイル */
-        .fullscreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            display: none;
-        }
-        .fullscreen img {
-            max-width: 90%;
-            max-height: 90%;
-        }
-        /* 画面上のテキストスタイル */
-        .overlay-text {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            z-index: 10;
-            text-shadow: 1px 1px 2px black;
-        }
-    </style>
-</head>
-<body style="margin: 0; overflow: hidden;">
-    <!-- 画面上に表示するテキスト -->
-    <div class="overlay-text">Hiroマーカーを探せ</div>
+  
 
-    <a-scene embedded arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;">
+    <a-scene embedded arjs="debugUIEnabled: false;">
         <a-marker preset="hiro">
             <!-- 出現する画像 -->
             <a-image 
@@ -58,8 +23,7 @@
 
         <!-- カメラ設定 -->
         <a-entity camera look-controls="enabled: true" 
-                  position="0 0 0"
-                  camera="fov: 100;"</a-entity>
+                  position="0 0 0"</a-entity>
     </a-scene>
 
     <!-- フルスクリーン表示用の画像 -->
