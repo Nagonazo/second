@@ -1,52 +1,38 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <title>AR Example</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/master/aframe/build/aframe-ar.js"></script>
-    <style>    
-        /* フルスクリーン表示用のスタイル */
-        .fullscreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            display: none;
-        }
-        .fullscreen img {
-            max-width: 90%;
-            max-height: 90%;
-        }
-        /* 画面上のテキストスタイル */
-        .overlay-text {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            z-index: 10;
-            text-shadow: 1px 1px 2px black;
-        }
-     </style>
-</head>
-<body style="margin: 0; overflow: hidden;">
-    <!-- 画面上に表示するテキスト -->
-    <div class="overlay-text">Hiroマーカーを探せ</div>
-  
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      .hud-text {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 24px;
+        color: white;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        border-radius: 5px;
+        z-index: 1000;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- メッセージ表示エリア -->
+    <div class="hud-text">Hiroマーカーを探せ</div>
 
-    <a-scene embedded arjs="debugUIEnabled: false;">
-        <a-marker type='pattern' url='pattern-marker.patt'>
-            <!-- 出現する画像 -->
-            <a-image 
+    <!-- AR.jsのシーン -->
+    <a-scene embedded arjs="debugUIEnabled: false">
+      <a-marker preset="hiro">
+        <a-image 
                 id="ar-image"
                 src="ar-image.jpg" <!-- 出現する画像のURL -->
                 position="0 0.5 -0.2" 
@@ -54,31 +40,9 @@
                 look-at="[camera]"
                 class="clickable">
             </a-image>
-        </a-marker>
-
-        <!-- カメラ設定 -->
-        <a-entity camera look-controls="enabled: true" 
-                  position="0 0 5"</a-entity>
+      </a-marker>
+      <a-entity camera></a-entity>
     </a-scene>
-
-    <!-- フルスクリーン表示用の画像 -->
-    <div id="fullscreen" class="fullscreen" onclick="closeFullscreen()">
-        <img id="fullscreen-image" src="">
-    </div>
-
-    <script>
-        // 出現する画像をクリックしたときにフルスクリーンで表示する別の画像
-        document.querySelector('#ar-image').addEventListener('click', function () {
-            const fullscreenDiv = document.getElementById('fullscreen');
-            const fullscreenImage = document.getElementById('fullscreen-image');
-            fullscreenImage.src = 'full-image.jpg'; // フルスクリーン表示する画像のURLを指定
-            fullscreenDiv.style.display = 'flex';
-        });
-
-        // フルスクリーン表示を閉じる
-        function closeFullscreen() {
-            document.getElementById('fullscreen').style.display = 'none';
-        }
-    </script>
-</body>
+  </body>
 </html>
+
