@@ -47,11 +47,6 @@
 
     <!-- AR.jsのシーン -->
     <a-scene embedded arjs="debugUIEnabled: false">
-      <!-- カメラとカーソルの設定 -->
-      <a-entity camera>
-        <a-cursor></a-cursor>
-      </a-entity>
-      
       <a-marker preset="hiro">
         <a-image 
           id="ar-image"
@@ -63,6 +58,7 @@
           click-to-fullscreen>
         </a-image>
       </a-marker>
+      <a-entity camera></a-entity>
     </a-scene>
 
     <!-- フルスクリーン表示用の画像 -->
