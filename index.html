@@ -1,44 +1,28 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
+<head>
     <meta charset="UTF-8" />
-    <title>AR Example</title>
+    <title>AR Example with Image Marker</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/master/aframe/build/aframe-ar.js"></script>
     <style>
-      body, html {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-      }
-      .hud-text {
-        position: absolute;
-        top: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 24px;
-        color: white;
-        background: rgba(0, 0, 0, 0.5);
-        padding: 10px;
-        border-radius: 5px;
-        z-index: 1000;
-      }
-      #fullscreen {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.8);
-        justify-content: center;
-        align-items: center;
-        z-index: 1001;
-      }
-      #fullscreen img {
-        max-width: 90%;
-        max-height: 90%;
-      }
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .hud-text {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000;
+        }
     </style>
   </head>
   <body>
@@ -60,30 +44,5 @@
       </a-marker>
       <a-entity camera></a-entity>
     </a-scene>
-
-    <!-- フルスクリーン表示用の画像 -->
-    <div id="fullscreen" onclick="closeFullscreen()">
-      <img id="fullscreen-image" src="">
-    </div>
-
-    <script>
-      // フルスクリーン表示用のコンポーネントを登録
-      AFRAME.registerComponent('click-to-fullscreen', {
-        init: function () {
-          this.el.addEventListener('click', function () {
-            const fullscreenDiv = document.getElementById('fullscreen');
-            const fullscreenImage = document.getElementById('fullscreen-image');
-            fullscreenImage.src = 'full-image.jpg'; // フルスクリーン表示する画像のURL
-            fullscreenDiv.style.display = 'flex';
-          });
-        }
-      });
-
-      // フルスクリーン表示を閉じる
-      function closeFullscreen() {
-        document.getElementById('fullscreen').style.display = 'none';
-      }
-    </script>
-
   </body>
 </html>
