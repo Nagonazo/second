@@ -1,45 +1,84 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8" />
-    <title>AR Example with Image Marker</title>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/master/aframe/build/aframe-ar.js"></script>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
-        .hud-text {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 24px;
-            color: white;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 1000;
-        }
-    </style>
-  </head>
-  <body>
-    <!-- メッセージ表示エリア -->
-    <div class="hud-text">Hiroマーカーを探せ</div>
 
-    <!-- AR.jsのシーン -->
-    <a-scene embedded arjs="debugUIEnabled: false">
-      <a-marker preset="hiro">
-        <a-image 
-          src="ar-image.jpg" <!-- 出現する画像のURL -->
-          position="0 0.5 0" 
-          rotation="-90 0 0" <!-- マーカーに並行にする -->
-          scale="20 20 20"> <!-- 画像の大きさを調整 -->
-        </a-image>
-      </a-marker>
-      <a-entity camera></a-entity>
-    </a-scene>
-  </body>
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/2.0.1/aframe/build/aframe-ar.min.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+  <a-scene embedded arjs>
+    <a-marker preset="hiro">
+      <!-- メインテキスト -->
+      <a-text id="mainText" value="冒険が始まる！どこへ行く？" position="0 1.5 0" align="center" color="white" width="4"></a-text>
+
+      <!-- 第一選択肢 -->
+      <a-text id="choice1" value="1. 洞窟に入る" position="-0.7 1.2 0" color="cyan" align="center" width="3"></a-text>
+      <a-text id="choice2" value="2. 森へ進む" position="0.7 1.2 0" color="lime" align="center" width="3"></a-text>
+
+      <!-- 第二選択肢（洞窟ルート） -->
+      <a-text id="caveA" value="A. 慎重に取る" position="-0.7 0.9 0" color="orange" align="center" visible="false" width="2.5"></a-text>
+      <a-text id="caveB" value="B. 一気に奪う" position="0.7 0.9 0" color="red" align="center" visible="false" width="2.5"></a-text>
+
+      <!-- 第二選択肢（森ルート） -->
+      <a-text id="forestA" value="A. 戦う" position="-0.7 0.9 0" color="orange" align="center" visible="false" width="2.5"></a-text>
+      <a-text id="forestB" value="B. 逃げる" position="0.7 0.9 0" color="red" align="center" visible="false" width="2.5"></a-text>
+
+      <!-- 結果 -->
+      <a-text id="result" value="" position="0 0.5 0" color="yellow" align="center" width="3"></a-text>
+    </a-marker>
+
+    <a-entity camera></a-entity>
+  </a-scene>
+
+  <script>
+    const mainText = document.querySelector('#mainText');
+    const result = document.querySelector('#result');
+
+    // 第一選択肢
+    const choice1 = document.querySelector('#choice1');
+    const choice2 = document.querySelector('#choice2');
+
+    // 第二選択肢（洞窟）
+    const caveA = document.querySelector('#caveA');
+    const caveB = document.querySelector('#caveB');
+
+    // 第二選択肢（森）
+    const forestA = document.querySelector('#forestA');
+    const forestB = document.querySelector('#forestB');
+
+    // 洞窟ルート選択
+    choice1.addEventListener('click', () => {
+      mainText.setAttribute('value', '宝を見つけた！どうする？');
+      choice1.setAttribute('visible', false);
+      choice2.setAttribute('visible', false);
+      caveA.setAttribute('visible', true);
+      caveB.setAttribute('visible', true);
+    });
+
+    // 森ルート選択
+    choice2.addEventListener('click', () => {
+      mainText.setAttribute('value', 'モンスターが現れた！どうする？');
+      choice1.setAttribute('visible', false);
+      choice2.setAttribute('visible', false);
+      forestA.setAttribute('visible', true);
+      forestB.setAttribute('visible', true);
+    });
+
+    // 洞窟ルート結果
+    caveA.addEventListener('click', () => {
+      result.setAttribute('value', '宝を無事にゲット！');
+    });
+    caveB.addEventListener('click', () => {
+      result.setAttribute('value', '罠が発動！脱出ゲーム開始！');
+    });
+
+    // 森ルート結果
+    forestA.addEventListener('click', () => {
+      result.setAttribute('value', 'モンスターを倒した！');
+    });
+    forestB.addEventListener('click', () => {
+      result.setAttribute('value', '迷子になってしまった…');
+    });
+  </script>
+</body>
 </html>
